@@ -3,9 +3,5 @@ https://trello.com/invite/b/fWLRGD50/ATTI205f00504959837b5ce70adab7ce5c32840762A
 <<<<<<< HEAD
 Team 2
 Chettra Ly
-Souleymane Gael Nongnogo
-=======
--- Team 2 --
-Chettra Ly
 Manuel Zamalloa 
->>>>>>> 0a1497efcc6bd6fd4097201e2b3b17959e70c81e
+Souleymane Gael Nongnogo
