@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, getImageUrl } from "./utils.mjs";
 
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
@@ -8,9 +8,9 @@ function renderCartContents() {
   }
 }
 
-function getImageUrl(name) {
-  return new URL(`../images/tents/${name}`, import.meta.url).href;
-}
+// function getImageUrl(name) {
+//   return new URL(`../images/tents/${name}`, import.meta.url).href;
+// }
 
 function cartItemTemplate(item) {
   const imageUrl = getImageUrl(item.Image);
