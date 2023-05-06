@@ -8,11 +8,16 @@ function renderCartContents() {
   }
 }
 
+function getImageUrl(name) {
+  return new URL(`../images/tents/${name}`, import.meta.url).href;
+}
+
 function cartItemTemplate(item) {
+  const imageUrl = getImageUrl(item.Image);
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${imageUrl}"
       alt="${item.Name}"
     />
   </a>
