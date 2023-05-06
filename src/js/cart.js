@@ -3,9 +3,26 @@ import { getLocalStorage, getImageUrl } from "./utils.mjs";
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   if (cartItems) {
+    //cart functionality to get total price and display 
+    const totalPrice = cartTotal(cartItems); 
+    let totalDisplay = `${totalPrice}`; 
+    let cartElement = document.querySelector(".cart-total");
+    cartElement.insertAdjacentHTML("beforeend", totalDisplay)
+
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     document.querySelector(".product-list").innerHTML = htmlItems.join("");
   }
+}
+
+function cartTotal(cartItems) { 
+  let total = 0;
+  if (cartItems.length > 0) {
+    document.querySelector(".cart-footer").classList.add("show");
+    cartItems.forEach(cartItem => {
+        total += cartItem.FinalPrice
+    });  
+  }
+  return total; 
 }
 
 // function getImageUrl(name) {
