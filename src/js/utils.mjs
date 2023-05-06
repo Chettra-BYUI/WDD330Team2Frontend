@@ -29,3 +29,16 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+// get parameters function
+export function getParam(param = "product") {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const product = urlParams.get(param);
+  return product;
+}
+
+// get image url  
+export function getImageUrl(name) {
+  return new URL(`../images/tents/${name}`, import.meta.url).href;
+}
