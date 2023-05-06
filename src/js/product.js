@@ -2,9 +2,7 @@ import { getParam } from "./utils.mjs";
 import productDetails from "./productDetails.mjs";
 
 const productId = getParam("product");
-productDetails(productId);
-
-
+productDetails(productId, "addToCart");
 
 // add to cart button event handler
 // async function addToCartHandler(e) {
@@ -16,4 +14,3 @@ productDetails(productId);
 // document
 //   .getElementById("addToCart")
 //   .addEventListener("click", addToCartHandler);
-
