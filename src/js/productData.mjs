@@ -7,8 +7,7 @@ function convertToJson(res) {
 }
 
 export function getData(category = "tents") {
-  const dataUrl = new URL(`../json/${category}.json`, import.meta.url).href;
-  return fetch(dataUrl)
+  return fetch(`../json/${category}.json`)
     .then(convertToJson)
     .then((data) => data);
 }
