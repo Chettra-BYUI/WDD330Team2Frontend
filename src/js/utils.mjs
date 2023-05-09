@@ -37,3 +37,18 @@ export function getParam(param = "product") {
   const product = urlParams.get(param);
   return product;
 }
+
+// function renderList(products, productListElement) {
+//   const htmlStrings = products.map((product) => productCardTemplate(product));
+
+//   productListElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
+// }
+
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true){
+  if (clear) {
+    parentElement.innerHTML = "";
+  } 
+  const htmlStrings = list.map((item) => templateFn(item));
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+
+}
