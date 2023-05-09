@@ -37,8 +37,3 @@ export function getParam(param = "product") {
   const product = urlParams.get(param);
   return product;
 }
-
-// get image url  
-export function getImageUrl(name) {
-  return new URL(`../images/tents/${name}`, import.meta.url).href;
-}
