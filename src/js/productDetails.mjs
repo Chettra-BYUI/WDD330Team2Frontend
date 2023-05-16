@@ -26,7 +26,7 @@ export default async function productDetails(productId, selector) {
     title.style.cssText = "text-align: center; color: #DD5858";
 
     status.innerHTML = "404";
-    title.innerHTML = "Uh-Oh... Sorry your product is not found";
+    title.innerHTML = "Uh-Oh... Sorry your product is not found"; 
     productDetail.innerHTML += status.outerHTML + title.outerHTML;
   }
 }
