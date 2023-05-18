@@ -44,7 +44,7 @@ export function getParam(param = "product") {
 //   productListElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
 // }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true){
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
   if (clear) {
     parentElement.innerHTML = "";
   } 
@@ -66,7 +66,6 @@ export async function renderWithTemplate(templateFn, parentElement, data, callba
 }
 
 function loadTemplate(path) {
-
   return async function () {
     const response = await fetch(path);
     if (response.ok) {
@@ -85,5 +84,4 @@ export function loadHeaderFooter() {
 
   renderWithTemplate(headerTemplateFn, headerEl);
   renderWithTemplate(footerTemplateFn, footerEl);
-
 }
