@@ -18,8 +18,8 @@ function addToCart(productDetail) {
 
 // Animate cart Icon
 function animateCartIcon() {
-  const cartIcon = document.getElementById("cart-icon");
-
+  const cartIcon = document.querySelector(".cart svg");
+  
   const cartAnimationKeyframe = [
     { transform: "rotate(0) scale(1)" },
     { transform: "rotate(30deg) scale(1.4)", fill: "#008000" },

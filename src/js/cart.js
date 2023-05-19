@@ -1,47 +1,51 @@
-import { getLocalStorage } from "./utils.mjs";
+import cartList from "./shoppingCart.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 
-function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-  if (cartItems) {
-    //cart functionality to get total price and display
-    const totalPrice = cartTotal(cartItems);
-    let totalDisplay = `${totalPrice}`;
-    let cartElement = document.querySelector(".cart-total");
-    cartElement.insertAdjacentHTML("beforeend", totalDisplay);
+loadHeaderFooter();
+cartList(".product-list", "so-cart");
 
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  }
-}
+// function renderCartContents() {
+//   const cartItems = getLocalStorage("so-cart");
+//   if (cartItems) {
+//     cart functionality to get total price and display
+//     const totalPrice = cartTotal(cartItems);
+//     let totalDisplay = `${totalPrice}`;
+//     let cartElement = document.querySelector(".cart-total");
+//     cartElement.insertAdjacentHTML("beforeend", totalDisplay);
 
-function cartTotal(cartItems) {
-  let total = 0;
-  if (cartItems.length > 0) {
-    document.querySelector(".cart-footer").classList.add("show");
-    cartItems.forEach((cartItem) => {
-      total += cartItem.FinalPrice;
-    });
-  }
-  return total;
-}
+//     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+//     document.querySelector(".product-list").innerHTML = htmlItems.join("");
+//   }
+// }
 
-function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
+// function cartTotal(cartItems) {
+//   let total = 0;
+//   if (cartItems.length > 0) {
+//     document.querySelector(".cart-footer").classList.add("show");
+//     cartItems.forEach((cartItem) => {
+//       total += cartItem.FinalPrice;
+//     });
+//   }
+//   return total;
+// }
 
-  return newItem;
-}
+// function cartItemTemplate(item) {
+//   const newItem = `<li class="cart-card divider">
+//     <a href="#" class="cart-card__image">
+//       <img
+//         src="${item.Image}"
+//         alt="${item.Name}"
+//       />
+//     </a>
+//     <a href="#">
+//       <h2 class="card__name">${item.Name}</h2>
+//     </a>
+//     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+//     <p class="cart-card__quantity">qty: 1</p>
+//     <p class="cart-card__price">$${item.FinalPrice}</p>
+//   </li>`;
 
-renderCartContents();
+//   return newItem;
+// }
+
+// renderCartContents();
