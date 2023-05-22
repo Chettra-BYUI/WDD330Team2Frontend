@@ -12,22 +12,8 @@ export default async function productDetails(productId, selector) {
       .addEventListener("click", addToCartHandler);
   } else {
     //Product not found page
-    //Used only when product id is not found. 
-
-    document.getElementById("addToCart").remove();
-    const productDetail = document.querySelector(".product-detail");
-    productDetail.innerHTML = "";
-
-    const status = document.createElement("p");
-    const title = document.createElement("h1");
-    
-    status.style.cssText =
-      "text-align: center; color: #DD5858; font-size: 100px; margin: 20px";
-    title.style.cssText = "text-align: center; color: #DD5858";
-
-    status.innerHTML = "404";
-    title.innerHTML = "Uh-Oh... Sorry your product is not found"; 
-    productDetail.innerHTML += status.outerHTML + title.outerHTML;
+    //Used only when product id is not found.
+    showNotFoundPage();
   }
 }
 
@@ -75,4 +61,19 @@ function renderProductDetails(productDetail) {
   // `;
 
   // productElement.insertAdjacentHTML("afterbegin", productNode);
+}
+
+function showNotFoundPage() {
+  document.getElementById("addToCart").remove();
+  const productDetail = document.querySelector(".product-detail");
+  productDetail.innerHTML = "";
+
+  const status = document.createElement("h1");
+  const title = document.createElement("p");
+
+  status.innerHTML = "404";
+  title.innerHTML = "Uh-Oh... Sorry your product is not found";
+
+  productDetail.classList.add("product-not-found");
+  productDetail.innerHTML += status.outerHTML + title.outerHTML;
 }

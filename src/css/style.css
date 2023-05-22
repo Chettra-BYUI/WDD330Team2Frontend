@@ -246,6 +246,17 @@ button {
   visibility: visible;
 }
 
+.product-not-found > h1,
+.product-not-found > p {
+  text-align: center;
+  color: #dd5858;
+  font-size: 30px;
+  margin: 20px;
+}
+.product-not-found > h1 {
+  font-size: 100px;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
