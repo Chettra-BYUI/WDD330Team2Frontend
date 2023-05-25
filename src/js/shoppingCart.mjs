@@ -1,7 +1,12 @@
-import { renderWithTemplate, renderListWithTemplate, getLocalStorage } from "./utils.mjs";
+import {
+  renderWithTemplate,
+  renderListWithTemplate,
+  getLocalStorage,
+} from "./utils.mjs";
 
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
+  const newItem = `
+  <li class="cart-card divider">
     <a href="#" class="cart-card__image">
       <img
         src="${item.Image}"
@@ -14,6 +19,7 @@ function cartItemTemplate(item) {
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
     <p class="cart-card__quantity">qty: 1</p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
+    <span class=cart-card__icon  data-id=${item.Id}>x</span>
   </li>`;
 
   return newItem;
@@ -45,9 +51,40 @@ export default function cartList(selector, category) {
   const cartItems = getLocalStorage(category);
   const cartListElement = document.querySelector(selector);
 
-  renderListWithTemplate(cartItemTemplate, cartListElement, cartItems, "afterbegin", true);
+  renderListWithTemplate(
+    cartItemTemplate,
+    cartListElement,
+    cartItems,
+    "afterbegin",
+    true
+  );
 
   displayTotalCart(cartItems);
+
+  // ability to remove cart by id only 
+  let cardIcon = document.querySelectorAll(".cart-card__icon");
+
+  cardIcon.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      let soCart = localStorage.getItem("so-cart");
+      let cartItems = JSON.parse(soCart);
+
+      //get id from x 
+      const id = e.target.getAttribute("data-id");
+
+      //filters out id that matches clicked target
+      let newItems = cartItems.filter( (item) => { return item.Id !== id })
+
+      //if you want to remove by index and not all of them by id use this: 
+      // let index = [].indexOf.call(cardIcon, e.target);
+      // cartItems.splice(index, 1);
+      
+      localStorage.setItem("so-cart", JSON.stringify(newItems));
+
+      //refresh page
+      location.replace(location.href);
+    });
+  });
 
   // get the element we will insert the list into from the selector
   // get the list of products
