@@ -226,6 +226,10 @@ button {
   grid-column: 3;
 }
 
+.product-card__price_SRP {
+  text-decoration: line-through;
+}
+
 /* cart footer  */
 .cart-footer p {
   border: 1px solid #525b0f;

@@ -1,31 +1,52 @@
 import { setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
-let productData;
-
 export default async function productDetails(productId, selector) {
-  productData = await findProductById(productId, "tents");
+  const productData = await findProductById(productId, "tents");
   if (productData) {
     renderProductDetails(productData);
     document
       .getElementById(selector)
-      .addEventListener("click", addToCartHandler);
+      .addEventListener("click", () => addToCart(productData));
   } else {
     //Product not found page
     //Used only when product id is not found.
     showNotFoundPage();
   }
+//   const productData = await findProductById(productId);
+//   renderProductDetails(productData);
+//   document
+//     .getElementById(selector)
+//     .addEventListener("click", () => addToCart(productData));
 }
 
 // add to cart button event handler
-function addToCartHandler() {
-  addProductToCart(productData);
-}
-
-function addProductToCart(productDetail) {
+function addToCart(productDetail) {
   setLocalStorage("so-cart", productDetail);
+  animateCartIcon();
 }
 
+// Animate cart Icon
+function animateCartIcon() {
+  const cartIcon = document.querySelector(".cart svg");
+  
+  const cartAnimationKeyframe = [
+    { transform: "rotate(0) scale(1)" },
+    { transform: "rotate(30deg) scale(1.4)", fill: "#008000" },
+    { transform: "rotate(0deg) scale(1.4)", fill: "#008000" },
+    { transform: "rotate(-30deg) scale(1.4)", fill: "#008000" },
+    { transform: "rotate(0) scale(1)", fill: "none" }
+  ];
+
+  const cartAnimationOptions = {
+    duration: 250,
+    iterations: 2
+  };
+
+  cartIcon.animate(cartAnimationKeyframe, cartAnimationOptions);
+}
+
+// Render product details
 function renderProductDetails(productDetail) {
   document.getElementById("productName").innerHTML = productDetail.Brand.Name;
   document.getElementById("productNameWithoutBrand").innerHTML =
