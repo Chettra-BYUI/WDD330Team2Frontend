@@ -6,9 +6,9 @@ function productCardTemplate(product) {
   let formattedRSP = RS_Price.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
   return `<li class="product-card">
-    <a href="product_pages/index.html?product=${product.Id}">
+    <a href="../product_pages/index.html?product=${product.Id}">
     <img
-      src="${product.Image}"
+      src="${product.Images.PrimaryMedium}"
       alt="Image of ${product.Name}"
     />
     <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -29,7 +29,7 @@ function filterProducts(numbers, products) {
 
 export default async function productList(selector, category) {
   const products = await getData(category);
-  const filteredProducts = filterProducts(4, products)
+  const filteredProducts = filterProducts(4, products);
   const productListElement = document.querySelector(selector);
 
 
