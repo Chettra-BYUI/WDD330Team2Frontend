@@ -2,12 +2,22 @@ import { setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./productData.mjs";
 
 export default async function productDetails(productId, selector) {
-  const productData = await findProductById(productId);
-  renderProductDetails(productData);
-  document
-    .getElementById(selector)
-    .addEventListener("click", () => addToCart(productData));
-
+  const productData = await findProductById(productId, "tents");
+  if (productData) {
+    renderProductDetails(productData);
+    document
+      .getElementById(selector)
+      .addEventListener("click", () => addToCart(productData));
+  } else {
+    //Product not found page
+    //Used only when product id is not found.
+    showNotFoundPage();
+  }
+//   const productData = await findProductById(productId);
+//   renderProductDetails(productData);
+//   document
+//     .getElementById(selector)
+//     .addEventListener("click", () => addToCart(productData));
 }
 
 // add to cart button event handler
@@ -39,15 +49,24 @@ function animateCartIcon() {
 // Render product details
 function renderProductDetails(productDetail) {
   document.getElementById("productName").innerHTML = productDetail.Brand.Name;
-  document.getElementById("productNameWithoutBrand").innerHTML = productDetail.Name;
+  document.getElementById("productNameWithoutBrand").innerHTML =
+    productDetail.Name;
 
-  document.getElementById("productImage").setAttribute("src", productDetail.Image);
-  document.getElementById("productImage").setAttribute("alt", productDetail.Name);
+  document
+    .getElementById("productImage")
+    .setAttribute("src", productDetail.Image);
+  document
+    .getElementById("productImage")
+    .setAttribute("alt", productDetail.Name);
 
-  document.getElementById("productColorName").innerHTML = productDetail.Colors[0].ColorName;
-  document.getElementById("productDescriptionHtmlSimple").innerHTML = productDetail.DescriptionHtmlSimple;
+  document.getElementById("productColorName").innerHTML =
+    productDetail.Colors[0].ColorName;
+  document.getElementById("productDescriptionHtmlSimple").innerHTML =
+    productDetail.DescriptionHtmlSimple;
 
-  document.getElementById("addToCart").setAttribute("data-id", productDetail.Id);
+  document
+    .getElementById("addToCart")
+    .setAttribute("data-id", productDetail.Id);
 
   // const productElement = document.querySelector(".product-detail");
   // const productNode = `
@@ -63,5 +82,19 @@ function renderProductDetails(productDetail) {
   // `;
 
   // productElement.insertAdjacentHTML("afterbegin", productNode);
+}
 
+function showNotFoundPage() {
+  document.getElementById("addToCart").remove();
+  const productDetail = document.querySelector(".product-detail");
+  productDetail.innerHTML = "";
+
+  const status = document.createElement("h1");
+  const title = document.createElement("p");
+
+  status.innerHTML = "404";
+  title.innerHTML = "Uh-Oh... Sorry your product is not found";
+
+  productDetail.classList.add("product-not-found");
+  productDetail.innerHTML += status.outerHTML + title.outerHTML;
 }
