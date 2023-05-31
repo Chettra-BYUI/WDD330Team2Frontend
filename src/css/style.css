@@ -37,17 +37,28 @@ header {
 
 .logo {
   line-height: 60px;
-  width: 245px;
+  /* width: 245px; */
   overflow: hidden;
   display: flex;
-  font-size: 30px;
+  font-size: 20px;
   text-align: right;
   font-family: var(--font-headline);
 }
 
 .logo img {
-  width: 60px;
-  height: 60px;
+  display: none;
+}
+
+@media screen and (min-width: 500px) {
+  .logo {
+    font-size: 30px;
+  }
+
+  .logo img {
+    display: block;
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .logo a {
@@ -110,6 +121,52 @@ button {
 }
 
 /* End utility classes */
+
+/* Product search utilities */
+
+.search {
+  display: flex;
+  width: 50%;
+  align-items: center;
+}
+
+.search__form {
+  position: relative;
+  width: 100%;
+}
+
+.search__label {
+  display: none;
+}
+
+.search__input {
+  width: 100%;
+  padding: 5px;
+}
+
+.search__results {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  padding: 0 5px;
+  margin: 0;
+  z-index: 1;
+  list-style: none;
+  background-color: #eee;
+}
+
+.search__result {
+  padding: 10px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #fff;
+}
+
+.search__result a {
+  color: black;
+  text-decoration: none;
+}
+
+/* End of product search utilities */
 
 /* Cart icon styles */
 .cart {
