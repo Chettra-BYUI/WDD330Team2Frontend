@@ -111,3 +111,9 @@ export function loadHeaderFooter() {
   renderWithTemplate(headerTemplateFn, headerEl, undefined, searchInputFunction);
   renderWithTemplate(footerTemplateFn, footerEl);
 }
+
+
+export function currencyConverter(number) { 
+   return number.toLocaleString("en-US", { style: "currency", currency: "USD" });
+
+}
