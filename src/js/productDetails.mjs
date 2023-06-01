@@ -1,5 +1,5 @@
 import { setLocalStorage } from "./utils.mjs";
-import { findProductById } from "./productData.mjs";
+import { findProductById } from "./externalServices.mjs";
 
 export default async function productDetails(productId, selector) {
   const productData = await findProductById(productId, "tents");

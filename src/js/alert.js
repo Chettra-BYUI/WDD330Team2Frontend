@@ -1,7 +1,7 @@
-import { getData } from "./productData.mjs";
+import { getProductsByCategory } from "./externalServices.mjs";
 
 export default class Alert {
-  // async getData() {
+  // async getProductsByCategory() {
   //   try {
   //     const response = await fetch("../json/alert.json");
   //     const data = await response.json();
@@ -31,7 +31,7 @@ export default class Alert {
   }
 
   async renderAlert() {
-    const alertData = await getData("alerts");
+    const alertData = await getProductsByCategory("alerts");
 
     if (alertData) {
       const alertSection = this.generateAlerts(alertData);

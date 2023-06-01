@@ -105,7 +105,8 @@ header {
   color: var(--tertiary-color);
 }
 
-button {
+button,
+.btn-link {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
@@ -344,6 +345,14 @@ button {
   box-shadow: 10px 5px 5px #e2dfdf;
 }
 
+form label,
+form input,
+form button {
+  display: block;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
 .hide {
   visibility: hidden;
 }
@@ -359,6 +368,7 @@ button {
   font-size: 30px;
   margin: 20px;
 }
+
 .product-not-found > h1 {
   font-size: 100px;
 }
