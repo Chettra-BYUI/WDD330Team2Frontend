@@ -105,7 +105,8 @@ header {
   color: var(--tertiary-color);
 }
 
-button {
+button,
+.btn-link {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
