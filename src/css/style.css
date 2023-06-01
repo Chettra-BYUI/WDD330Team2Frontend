@@ -153,6 +153,39 @@ button {
   color: var(--dark-grey);
 }
 
+/* Categories list */
+.categories {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 15px;
+  padding: 10px;
+}
+
+.category {
+  flex: 1 1 20%;
+  text-align: center;
+}
+
+.category a {
+  text-decoration: none;
+  color: black;
+}
+
+.category h2 {
+  font-size: 14px;
+}
+
+@media screen and (min-width: 500px) {
+  .categories {
+    column-gap: 15px;
+    padding: 25px;
+  }
+
+  .category h2 {
+    font-size: 20px;
+  }
+}
+
 /* Styles for product lists */
 .product-card {
   flex: 1 1 45%;

@@ -13,11 +13,6 @@ export default async function productDetails(productId, selector) {
     //Used only when product id is not found.
     showNotFoundPage();
   }
-//   const productData = await findProductById(productId);
-//   renderProductDetails(productData);
-//   document
-//     .getElementById(selector)
-//     .addEventListener("click", () => addToCart(productData));
 }
 
 // add to cart button event handler
@@ -54,7 +49,7 @@ function renderProductDetails(productDetail) {
 
   document
     .getElementById("productImage")
-    .setAttribute("src", productDetail.Image);
+    .setAttribute("src", productDetail.Images.PrimaryLarge);
   document
     .getElementById("productImage")
     .setAttribute("alt", productDetail.Name);
