@@ -14,6 +14,20 @@ export function getData(category = "tents") {
     .then((data) => data.Result);
 }
 
+export async function getMultipleData(categories) {
+  const categoriesPromises = categories.map(category => fetch(baseURL + `products/search/${category}`));
+
+  const res = await Promise.all(categoriesPromises);
+
+  const data = await Promise.all(res.map(productCategoryListPromise => {
+    if (productCategoryListPromise.ok) return productCategoryListPromise.json();
+  }));
+
+  const result = await Promise.all(data.map(productData => productData.Result));
+
+  return result.flat(1);
+}
+
 export async function findProductById(id) {
   // const products = await getData(category);
   // return products.find((item) => item.Id === id);

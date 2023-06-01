@@ -1,3 +1,5 @@
+import { getMultipleData } from "./productData.mjs";
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -50,7 +52,6 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   } 
   const htmlStrings = list.map((item) => templateFn(item));
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-
 }
 
 export async function renderWithTemplate(templateFn, parentElement, data, callback, position = "afterbegin", clear = true){
@@ -82,6 +83,31 @@ export function loadHeaderFooter() {
   const headerEl = document.querySelector("#main-header");
   const footerEl = document.querySelector("#footer");
 
-  renderWithTemplate(headerTemplateFn, headerEl);
+  const searchInputFunction = async () => {
+    const productList = await getMultipleData(["backpacks", "hammocks", "tents", "sleeping-bags"]);
+
+    const searchInputElement = document.querySelector(".search__input");
+    const searchResultElement = document.querySelector(".search__results");
+
+    function searchResultProductTemplate(product) {
+      return `<li class="search__result"><a href="/product_pages/index.html?product=${product.Id}">${product.Name}</a></li>`;
+    }
+
+    searchInputElement.addEventListener("input", e => {
+      const filteredList = productList.filter((product, index) => product.Name.toLowerCase().includes(e.target.value) && index < 5);
+
+      if (filteredList.length > 0 && e.target.value) {
+        renderListWithTemplate(searchResultProductTemplate, searchResultElement, filteredList);
+      } else if (filteredList.length > 0 && !e.target.value) {
+        searchResultElement.innerHTML = "";
+      } else {
+        const messageTemplate = () => `<li class="search__result">No product found</li>`;
+
+        renderWithTemplate(messageTemplate, searchResultElement);
+      }
+    });
+  };
+
+  renderWithTemplate(headerTemplateFn, headerEl, undefined, searchInputFunction);
   renderWithTemplate(footerTemplateFn, footerEl);
 }
