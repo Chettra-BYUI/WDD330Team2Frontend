@@ -96,7 +96,7 @@ header {
   margin-top: -1.3em;
 }
 
-.logo--square>div {
+.logo--square > div {
   margin-top: -1.7em;
 }
 
@@ -344,14 +344,12 @@ button {
   box-shadow: 10px 5px 5px #e2dfdf;
 }
 
-
 form label,
 form input,
 form button {
   display: block;
   margin-left: 20px;
   margin-bottom: 10px;
-
 }
 
 .hide {
@@ -362,15 +360,15 @@ form button {
   visibility: visible;
 }
 
-.product-not-found>h1,
-.product-not-found>p {
+.product-not-found > h1,
+.product-not-found > p {
   text-align: center;
   color: #dd5858;
   font-size: 30px;
   margin: 20px;
 }
 
-.product-not-found>h1 {
+.product-not-found > h1 {
   font-size: 100px;
 }
 

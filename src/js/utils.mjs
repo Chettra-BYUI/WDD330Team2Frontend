@@ -1,4 +1,4 @@
-import { getMultipleData } from "./productData.mjs";
+import { getMultipleData } from "./externalServices.mjs";
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -18,7 +18,7 @@ export function setLocalStorage(key, data) {
   if (isKeyExists) {
     const cartItems = getLocalStorage(key);
     cartItems.push(data);
-    localStorage.setItem(key, JSON.stringify(cartItems))
+    localStorage.setItem(key, JSON.stringify(cartItems));
   } else {
     localStorage.setItem(key, JSON.stringify([data]));
   }
@@ -46,24 +46,36 @@ export function getParam(param = "product") {
 //   productListElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
 // }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = true
+) {
   if (clear) {
     parentElement.innerHTML = "";
-  } 
+  }
   const htmlStrings = list.map((item) => templateFn(item));
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
 
-export async function renderWithTemplate(templateFn, parentElement, data, callback, position = "afterbegin", clear = true){
+export async function renderWithTemplate(
+  templateFn,
+  parentElement,
+  data,
+  callback,
+  position = "afterbegin",
+  clear = true
+) {
   if (clear) {
     parentElement.innerHTML = "";
-  } 
+  }
   const html = await templateFn(data);
   parentElement.insertAdjacentHTML(position, html);
   if (callback) {
     callback(data);
   }
-
 }
 
 function loadTemplate(path) {
@@ -73,7 +85,7 @@ function loadTemplate(path) {
       const html = await response.text();
       return html;
     }
-  } 
+  };
 }
 
 export function loadHeaderFooter() {
@@ -84,7 +96,12 @@ export function loadHeaderFooter() {
   const footerEl = document.querySelector("#footer");
 
   const searchInputFunction = async () => {
-    const productList = await getMultipleData(["backpacks", "hammocks", "tents", "sleeping-bags"]);
+    const productList = await getMultipleData([
+      "backpacks",
+      "hammocks",
+      "tents",
+      "sleeping-bags",
+    ]);
 
     const searchInputElement = document.querySelector(".search__input");
     const searchResultElement = document.querySelector(".search__results");
@@ -93,27 +110,50 @@ export function loadHeaderFooter() {
       return `<li class="search__result"><a href="/product_pages/index.html?product=${product.Id}">${product.Name}</a></li>`;
     }
 
-    searchInputElement.addEventListener("input", e => {
-      const filteredList = productList.filter((product, index) => product.Name.toLowerCase().includes(e.target.value) && index < 5);
+    searchInputElement.addEventListener("input", (e) => {
+      const filteredList = productList.filter(
+        (product, index) =>
+          product.Name.toLowerCase().includes(e.target.value) && index < 5
+      );
 
       if (filteredList.length > 0 && e.target.value) {
-        renderListWithTemplate(searchResultProductTemplate, searchResultElement, filteredList);
+        renderListWithTemplate(
+          searchResultProductTemplate,
+          searchResultElement,
+          filteredList
+        );
       } else if (filteredList.length > 0 && !e.target.value) {
         searchResultElement.innerHTML = "";
       } else {
-        const messageTemplate = () => `<li class="search__result">No product found</li>`;
+        const messageTemplate = () =>
+          `<li class="search__result">No product found</li>`;
 
         renderWithTemplate(messageTemplate, searchResultElement);
       }
     });
   };
 
-  renderWithTemplate(headerTemplateFn, headerEl, undefined, searchInputFunction);
+  renderWithTemplate(
+    headerTemplateFn,
+    headerEl,
+    undefined,
+    searchInputFunction
+  );
   renderWithTemplate(footerTemplateFn, footerEl);
 }
 
+export function currencyConverter(number) {
+  return number.toLocaleString("en-US", { style: "currency", currency: "USD" });
+}
 
-export function currencyConverter(number) { 
-   return number.toLocaleString("en-US", { style: "currency", currency: "USD" });
+// takes a form element and returns an object where the key is the "name" of the form input.
+export function formDataToJSON(formElement) {
+  const formData = new FormData(formElement);
+  const convertedJSON = {};
 
+  formData.forEach(function (value, key) {
+    convertedJSON[key] = value;
+  });
+
+  return convertedJSON;
 }

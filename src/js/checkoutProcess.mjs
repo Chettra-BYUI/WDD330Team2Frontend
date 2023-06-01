@@ -1,4 +1,6 @@
+import { checkout } from "./externalServices.mjs";
 import { currencyConverter, getLocalStorage } from "./utils.mjs";
+import { formDataToJSON } from "./utils.mjs";
 
 const checkoutProcess = {
   key: "",
@@ -63,6 +65,44 @@ const checkoutProcess = {
     this.outputSelector.querySelector("#orderTotal").innerHTML =
       currencyConverter(orderTotal);
   },
+
+  async checkout(form) {
+    // build the data object from the calculated fields, the items in the cart, and the information entered into the form
+    let formData = formDataToJSON(form); //return js object
+    let items = packageItems(this.list);
+
+    let data = {
+      orderDate: new Date(),
+      ...formData,
+      items: items,
+      orderTotal: this.itemTotal,
+      shipping: this.shipping,
+      tax: this.tax,
+    };
+    console.log(data);
+
+    try {
+      const res = await checkout(data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
+    // call the checkout method in our externalServices module and send it our data object.
+  },
 };
+
+// takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
+function packageItems(items) {
+  // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
+  return items.map((item, index) => {
+    return {
+      id: item.Id,
+      name: item.Name,
+      price: item.FinalPrice,
+      quantity: 1,
+    };
+  });
+}
 
 export default checkoutProcess;
