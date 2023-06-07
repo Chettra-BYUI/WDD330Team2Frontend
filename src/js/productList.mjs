@@ -27,16 +27,47 @@ function filterProducts(numbers, products) {
   return products.filter(( product, index ) => index < numbers );
 }
 
+// sorting product list function by name
+function sortProductsByName(products) {
+  const sortedProducts = products.sort((a, b) => {
+    const productA = a.NameWithoutBrand.toLowerCase();
+    const productB = b.NameWithoutBrand.toLowerCase();
+
+    if (productA < productB) return -1;
+    if (productA > productB) return 1;
+    return 0;
+  });
+  return sortedProducts;
+}
+
+// sorting product list function by price
+function sortProductsByPrice(products) {
+  const sortedProducts = products.sort((a, b) => a.ListPrice - b.ListPrice);
+  return sortedProducts; 
+}
+
+// sorting product list function
+function sortProductList(products, sortingType = "name") {
+  if (sortingType === "name") return sortProductsByName(products);
+  if (sortingType === "price") return sortProductsByPrice(products);
+}
+
+// fetching and rendering product list
 export default async function productList(selector, category) {
   const products = await getProductsByCategory(category);
-  const filteredProducts = filterProducts(4, products);
+  const filteredProducts = filterProducts(14, products);
   const productListElement = document.querySelector(selector);
-
-
-//   renderList(products, productListElement);
+  const sortProductListElement = document.querySelector("#sort-products");
 
 
   renderListWithTemplate(productCardTemplate, productListElement, filteredProducts, "afterbegin", true);
+
+  // sorting function list
+  sortProductListElement.addEventListener("change", event => {
+    const sortedProductList = sortProductList(filteredProducts, event.target.value);
+
+    renderListWithTemplate(productCardTemplate, productListElement, sortedProductList, "afterbegin", true);
+  });
 
   // get the element we will insert the list into from the selector
   // get the list of products
