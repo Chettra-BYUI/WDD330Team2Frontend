@@ -102,7 +102,7 @@ export function loadHeaderFooter() {
       "tents",
       "sleeping-bags",
     ]);
-
+    
     const searchInputElement = document.querySelector(".search__input");
     const searchResultElement = document.querySelector(".search__results");
 
@@ -112,9 +112,9 @@ export function loadHeaderFooter() {
 
     searchInputElement.addEventListener("input", (e) => {
       const filteredList = productList.filter(
-        (product, index) =>
-          product.Name.toLowerCase().includes(e.target.value) && index < 5
-      );
+        (product) =>
+          product.Name.toLowerCase().includes(e.target.value.toLowerCase())
+      ).slice(0, 5);
 
       if (filteredList.length > 0 && e.target.value) {
         renderListWithTemplate(

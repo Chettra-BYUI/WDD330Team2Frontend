@@ -142,6 +142,7 @@ button,
 
 .search__input {
   width: 100%;
+  margin: 0;
   padding: 5px;
 }
 
@@ -209,6 +210,21 @@ button,
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
+}
+
+.sorting {
+  text-align: right;
+}
+
+#sort-products {
+  margin-right: 4.5px;
+  padding: 5px 10px;
+  background-color: #eee;
+}
+
+#sort-products option {
+  padding: 20px 0;
+  font-size: 15px;
 }
 
 /* Categories list */
