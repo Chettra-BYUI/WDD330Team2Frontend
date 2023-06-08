@@ -1,4 +1,4 @@
-import { setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import { findProductById } from "./externalServices.mjs";
 
 export default async function productDetails(productId, selector) {
@@ -17,14 +17,43 @@ export default async function productDetails(productId, selector) {
 
 // add to cart button event handler
 function addToCart(productDetail) {
-  setLocalStorage("so-cart", productDetail);
+  let cart = getLocalStorage("so-cart");
+  
+  if (cart) {
+    // if cart is not empty 
+    let duplicate = false;
+
+    for (let i = 0; i < cart.length; i++) {
+  
+      if (cart[i].Id === productDetail.Id) {
+        // checks for duplicate items and if there is it adds to cart quantity.  
+        // also sets local storage items again but with quantity changed. 
+        // note: we are not adding a new cart item but just changing the quantity variable. 
+        duplicate = true;
+        cart[i].Quantity += 1;
+        localStorage.setItem("so-cart", JSON.stringify(cart));
+      }
+    }
+    if (duplicate === false) {
+      // if no exisiting item, it adds it to cart.
+      // also quantity is created here and initialized with 1. 
+      productDetail.Quantity = 1;
+      setLocalStorage("so-cart", productDetail);
+    }
+  } else {
+    // just for in case the cart is empty 
+    // we add an item and initialize it with quantity of 1. 
+    productDetail.Quantity = 1;
+    setLocalStorage("so-cart", productDetail);
+  }
+
   animateCartIcon();
 }
 
 // Animate cart Icon
 function animateCartIcon() {
   const cartIcon = document.querySelector(".cart svg");
-  
+
   const cartAnimationKeyframe = [
     { transform: "rotate(0) scale(1)" },
     { transform: "rotate(30deg) scale(1.4)", fill: "#008000" },
@@ -35,7 +64,7 @@ function animateCartIcon() {
 
   const cartAnimationOptions = {
     duration: 250,
-    iterations: 2
+    iterations: 2,
   };
 
   cartIcon.animate(cartAnimationKeyframe, cartAnimationOptions);
