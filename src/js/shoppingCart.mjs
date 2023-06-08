@@ -18,7 +18,8 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity">qty: ${item.Quantity}</p>
+    qty: 
+    <input class="cart-card__quantity" min="1" type="number" value="${item.Quantity}">
     <p class="cart-card__price">$${item.FinalPrice}</p>
     <span class=cart-card__icon  data-id=${item.Id}>x</span>
   </li>`;
@@ -48,9 +49,17 @@ function displayTotalCart(cartItems) {
   renderWithTemplate(cartTotalTemplate, cartElement, totalPrice);
 }
 
+function addPriceByQuantity(cartItems) {
+  cartItems.forEach((item) => {
+    item.FinalPrice = item.FinalPrice * item.Quantity;
+  });
+}
+
 export default function cartList(selector, category) {
   const cartItems = getLocalStorage(category);
   const cartListElement = document.querySelector(selector);
+  addPriceByQuantity(cartItems);
+
 
   renderListWithTemplate(
     cartItemTemplate,
@@ -62,7 +71,7 @@ export default function cartList(selector, category) {
 
   displayTotalCart(cartItems);
 
-  // ability to remove cart by id only 
+  // ability to remove cart by id only
   let cardIcon = document.querySelectorAll(".cart-card__icon");
 
   cardIcon.forEach((item) => {
@@ -70,16 +79,18 @@ export default function cartList(selector, category) {
       let soCart = localStorage.getItem("so-cart");
       let cartItems = JSON.parse(soCart);
 
-      //get id from x 
+      //get id from x
       const id = e.target.getAttribute("data-id");
 
       //filters out id that matches clicked target
-      let newItems = cartItems.filter( (item) => { return item.Id !== id })
+      let newItems = cartItems.filter((item) => {
+        return item.Id !== id;
+      });
 
-      //if you want to remove by index and not all of them by id use this: 
+      //if you want to remove by index and not all of them by id use this:
       // let index = [].indexOf.call(cardIcon, e.target);
       // cartItems.splice(index, 1);
-      
+
       localStorage.setItem("so-cart", JSON.stringify(newItems));
 
       //refresh page
