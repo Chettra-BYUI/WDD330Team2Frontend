@@ -262,7 +262,6 @@ button,
   margin: 0;
 }
 
-
 @media screen and (min-width: 500px) {
   .categories {
     column-gap: 15px;

@@ -1,13 +1,8 @@
 import { checkout } from "./externalServices.mjs";
-import { currencyConverter, getLocalStorage } from "./utils.mjs";
+import { currencyConverter, getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts} from "./utils.mjs";
 import { formDataToJSON } from "./utils.mjs";
 
-import {
-  setLocalStorage,
-  getLocalStorage,
-  alertMessage,
-  removeAllAlerts,
-} from "./utils.mjs";
+
 
 
 const checkoutProcess = {
@@ -44,8 +39,18 @@ const checkoutProcess = {
 
     let shipping = 0;
 
+    // this.list.forEach((item, index) => {
+    //   if (index == 0) {
+    //     shipping += 10;
+    //   } else {
+    //     shipping += 2;
+    //   }
+    // });
+    // revised the code in comments above to fix the empty basket issue.
+    
     this.list.forEach((item, index) => {
-      if (index == 0) {
+      this.list[index] = 0; // Assign 0 to the item in the array
+      if (index === 0) {
         shipping += 10;
       } else {
         shipping += 2;
@@ -102,7 +107,7 @@ const checkoutProcess = {
         alertMessage(err.message[message]);
       }
 
-      console.log err
+      console.log(err);
     }
 
     // call the checkout method in our externalServices module and send it our data object.
