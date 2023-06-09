@@ -2,6 +2,14 @@ import { checkout } from "./externalServices.mjs";
 import { currencyConverter, getLocalStorage } from "./utils.mjs";
 import { formDataToJSON } from "./utils.mjs";
 
+import {
+  setLocalStorage,
+  getLocalStorage,
+  alertMessage,
+  removeAllAlerts,
+} from "./utils.mjs";
+
+
 const checkoutProcess = {
   key: "",
   outputSelector: "",
@@ -84,8 +92,17 @@ const checkoutProcess = {
     try {
       const res = await checkout(data);
       console.log(res);
+      setLocalStorage("so-cart", []);
+      location.assign("/checkout/success.html");
+
     } catch (err) {
       console.log(err);
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
+      }
+
+      console.log err
     }
 
     // call the checkout method in our externalServices module and send it our data object.
