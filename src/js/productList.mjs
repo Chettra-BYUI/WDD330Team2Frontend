@@ -8,7 +8,9 @@ function productCardTemplate(product) {
   return `<li class="product-card">
     <a href="../product_pages/index.html?product=${product.Id}">
     <img
-      src="${product.Images.PrimaryMedium}"
+      srcset="${product.Images.PrimarySmall} 80w, ${product.Images.PrimaryMedium} 160w, ${product.Images.PrimaryLarge} 320w, ${product.Images.PrimaryExtraLarge} 600w"
+      sizes="(max-width: 400px) 80px, (max-width: 576px) 160px, (max-width: 1280px) 320px, 600px"
+      src="${product.Images.PrimaryLarge}"
       alt="Image of ${product.Name}"
     />
     <h3 class="card__brand">${product.Brand.Name}</h3>
