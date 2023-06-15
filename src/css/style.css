@@ -386,6 +386,16 @@ button,
   box-shadow: 10px 5px 5px #e2dfdf;
 }
 
+/* Login styles */
+
+.login-form {
+  padding: 30px 0;
+}
+
+.login-form button {
+  margin-top: 20px;
+}
+
 form label,
 form input,
 form button {
