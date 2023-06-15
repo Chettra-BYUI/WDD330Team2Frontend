@@ -67,7 +67,6 @@ export async function loginRequest(creds) {
   };
 
   const response = await fetch(baseURL + "login", options).then(convertToJson);
-
   return response.accessToken;
 }
 
@@ -75,12 +74,10 @@ export async function getOrders(token) {
   const options = {
     method: "GET",
     headers: {
-      "Authorization": `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     }
   };
 
   const response = await fetch(baseURL + "orders", options).then(convertToJson);
-  console.log(response, "response");
-  console.log("checking");
   return response;
 }

@@ -5,4 +5,5 @@ import { loadHeaderFooter } from "./utils.mjs";
 loadHeaderFooter();
 
 const token = checkLogin();
-currentOrders(token);
+
+currentOrders("#orders", token);

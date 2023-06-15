@@ -1,11 +1,19 @@
 
 import { getOrders } from "./externalServices.mjs";
 
-export async function currentOrders(token) {
+export async function currentOrders(selector, token) {
   try {    
-    const orderList = await getOrders(token);
-    console.log(orderList);
+    const orders = await getOrders(token);
+    const parent = document.querySelector(`${selector} tbody`);
+    parent.innerHTML = orders.map(orderTemplate).join("");
   } catch (error) {
     console.log(error);
   }
+}
+
+function orderTemplate(order) {
+  return `<tr><td>${order.id}</td>
+  <td>${new Date(order.orderDate).toLocaleDateString("en-US")}</td>
+  <td>${order.items.length}</td>
+  <td>${order.orderTotal}</td></tr>`;
 }

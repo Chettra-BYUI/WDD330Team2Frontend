@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 export async function login(creds, redirect = "/") {
   try {
     const token = await loginRequest(creds);
-    setLocalStorage("so-token", token);
+    localStorage.setItem("so-token", JSON.stringify(token));
 
     // because of the default arg provided above...if no redirect is provided send them Home.
     window.location = redirect;

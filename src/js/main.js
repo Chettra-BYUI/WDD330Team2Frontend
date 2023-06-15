@@ -1,7 +1,7 @@
 // import productList from "./productList.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 import Alert from "./alert.js";
-import { checkLogin } from "./auth.mjs";
+// import { checkLogin } from "./auth.mjs";
 
 loadHeaderFooter();
 
@@ -11,4 +11,4 @@ const alert = new Alert();
 alert.renderAlert();
 
 // check if user is logged in
-checkLogin();
+// checkLogin();
