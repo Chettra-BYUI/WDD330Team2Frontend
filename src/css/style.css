@@ -386,6 +386,35 @@ button,
   box-shadow: 10px 5px 5px #e2dfdf;
 }
 
+/* Login styles */
+
+.login-form {
+  padding: 30px 0;
+}
+
+.login-form button {
+  margin-top: 20px;
+}
+
+/* orders page styles */
+
+table#orders {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table#orders,
+table#orders th,
+table#orders td {
+  border: 2px solid black;
+}
+
+table#orders th,
+table#orders td {
+  padding: 10px 5px;
+  text-align: center;
+}
+
 form label,
 form input,
 form button {
