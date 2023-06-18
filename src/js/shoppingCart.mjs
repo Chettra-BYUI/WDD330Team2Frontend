@@ -56,10 +56,12 @@ function addPriceByQuantity(cartItems) {
 }
 
 export default function cartList(selector, category) {
-  const cartItems = getLocalStorage(category);
   const cartListElement = document.querySelector(selector);
-  addPriceByQuantity(cartItems);
+  const cartItems = getLocalStorage(category);
 
+  if (!cartItems) return;
+
+  addPriceByQuantity(cartItems);
 
   renderListWithTemplate(
     cartItemTemplate,
