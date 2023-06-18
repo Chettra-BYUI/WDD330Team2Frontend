@@ -170,6 +170,31 @@ button,
 
 /* End of product search utilities */
 
+/* Start of Breadcrumb */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 10px 5px;
+  font-size: 15px;
+}
+
+.breadcrumb__item {
+  display: inline-block;
+  padding: 3px 8px;
+  box-shadow: 2px 2px 3px 2px var(--light-grey);
+  border-radius: 5px;
+}
+
+.breadcrumb__arrow {
+  display: inline-block;
+  margin: 0 5px;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+/* End of Breadcrumb */
+
 /* Cart icon styles */
 .cart {
   padding-top: 1em;
@@ -266,6 +291,7 @@ button,
   background-color: var(--primary-color);
   border: 1px solid darkorange;
 }
+
 .alert > p {
   margin: 0;
 }

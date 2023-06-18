@@ -184,3 +184,14 @@ export function removeAllAlerts() {
   const alerts = document.querySelectorAll(".alert");
   alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }
+
+export function defaultBreadcrumbTemplateFunction() {
+  const currentLocationMain = location.pathname.split("/")[1];
+  return `<div class="breadcrumb">
+    <span class="breadcrumb__item">${ currentLocationMain }</span>
+  </div>`
+}
+
+export function renderBreadcrumb(template = defaultBreadcrumbTemplateFunction(), selector = "#main-header") {
+  document.querySelector(selector).insertAdjacentHTML("afterend", template);
+}
