@@ -230,14 +230,18 @@ button,
 /* Categories list */
 .categories {
   display: flex;
-  justify-content: space-between;
-  column-gap: 15px;
+  flex-wrap: wrap;
+  gap: 20px;
   padding: 10px;
+  margin: 30px 0;
 }
 
 .category {
   flex: 1 1 20%;
+  min-width: 150px;
   text-align: center;
+  box-shadow: 2px 2px 3px 2px var(--dark-grey);
+  border-radius: 10px;
 }
 
 .category a {
@@ -247,6 +251,10 @@ button,
 
 .category h2 {
   font-size: 14px;
+}
+
+.category img {
+  max-width: 100px;
 }
 
 /* alert styles */

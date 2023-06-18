@@ -3,8 +3,6 @@ import { currencyConverter, getLocalStorage, setLocalStorage, alertMessage, remo
 import { formDataToJSON } from "./utils.mjs";
 
 
-
-
 const checkoutProcess = {
   key: "",
   outputSelector: "",
@@ -25,11 +23,14 @@ const checkoutProcess = {
 
     let total = 0;
     if (this.list.length > 0) {
-      this.list.forEach((cartItem) => {
-        total += cartItem.FinalPrice;
+      this.list.forEach(({FinalPrice, Quantity}) => {
+        total += FinalPrice * Quantity;
       });
     }
-    this.outputSelector.querySelector("#numItems").innerHTML = this.list.length;
+
+    const numItems = this.list.reduce((accumulator, { Quantity }) => accumulator + Quantity, 0)
+
+    this.outputSelector.querySelector("#numItems").innerHTML = numItems;
     this.outputSelector.querySelector("#subTotal").innerHTML =
       currencyConverter(total);
     this.itemTotal = total;
@@ -39,13 +40,6 @@ const checkoutProcess = {
 
     let shipping = 0;
 
-    // this.list.forEach((item, index) => {
-    //   if (index == 0) {
-    //     shipping += 10;
-    //   } else {
-    //     shipping += 2;
-    //   }
-    // });
     // revised the code in comments above to fix the empty basket issue.
     
     this.list.forEach((item, index) => {
@@ -63,10 +57,8 @@ const checkoutProcess = {
     this.shipping = shipping;
     this.tax = tax;
 
-    this.outputSelector.querySelector("#shipping").innerHTML =
-      currencyConverter(shipping);
-    this.outputSelector.querySelector("#tax").innerHTML =
-      currencyConverter(tax);
+    this.outputSelector.querySelector("#shipping").innerHTML = currencyConverter(shipping);
+    this.outputSelector.querySelector("#tax").innerHTML = currencyConverter(tax);
 
     // display the totals.
     this.displayOrderTotals();
@@ -75,8 +67,7 @@ const checkoutProcess = {
     // once the totals are all calculated display them in the order summary page
     const orderTotal = this.itemTotal + this.shipping + this.tax;
 
-    this.outputSelector.querySelector("#orderTotal").innerHTML =
-      currencyConverter(orderTotal);
+    this.outputSelector.querySelector("#orderTotal").innerHTML = currencyConverter(orderTotal);
   },
 
   async checkout(form) {
@@ -117,14 +108,12 @@ const checkoutProcess = {
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
 function packageItems(items) {
   // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
-  return items.map((item, index) => {
-    return {
+  return items.map((item, index) => ({
       id: item.Id,
       name: item.Name,
       price: item.FinalPrice,
-      quantity: 1,
-    };
-  });
+      quantity: 1
+  }))
 }
 
 export default checkoutProcess;
