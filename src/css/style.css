@@ -217,7 +217,6 @@ button,
   font-weight: bolder;
   font-size: 20px;
 }
-
 /* End of Breadcrumb */
 
 /* Cart icon styles */
@@ -306,6 +305,54 @@ button,
 .category img {
   max-width: 100px;
 }
+
+/* Start Newsletter */
+
+.newsletter {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 0.5rem;
+}
+
+.newsletter legend {
+  padding: 0 5px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.newsletter label,
+.newsletter input,
+.newsletter button {
+  margin: 0;
+}
+
+.newsletter fieldset {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  column-gap: 10px;
+  padding: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+}
+
+.newsletter label {
+  width: 100%;
+  flex: 1 1 80%;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+@media screen and (min-width: 500px) {
+  .newsletter fieldset {
+    flex-direction: row;
+  }
+}
+
+/* End Newsletter */
 
 /* alert styles */
 .alert {
