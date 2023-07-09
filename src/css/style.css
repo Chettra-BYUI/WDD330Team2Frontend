@@ -123,6 +123,31 @@ button,
 
 /* End utility classes */
 
+/* Start first time register  */
+
+.visit-banner {
+  margin: 0;
+  padding: 15px 0;
+  text-align: center;
+  background-color: var(--secondary-color);
+  color: white;
+  animation: colorAnimation 1s;
+}
+
+@keyframes colorAnimation {
+  0% {
+    color: white;
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: white;
+  }
+}
+
+/* End first time register  */
+
 /* Product search utilities */
 
 .search {
