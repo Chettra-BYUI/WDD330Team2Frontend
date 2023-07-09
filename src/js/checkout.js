@@ -1,5 +1,5 @@
 import checkoutProcess from "./checkoutProcess.mjs";
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, renderBreadcrumb } from "./utils.mjs";
 
 checkoutProcess.init("so-cart", document.getElementById("checkoutSummary"));
 document.querySelector("#form").addEventListener("submit", async (e) => {
@@ -8,3 +8,6 @@ document.querySelector("#form").addEventListener("submit", async (e) => {
 });
 
 loadHeaderFooter();
+
+// renderBreadcrumb
+renderBreadcrumb();

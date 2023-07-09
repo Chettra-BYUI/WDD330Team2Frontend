@@ -15,6 +15,9 @@ const checkoutProcess = {
     this.key = key;
     this.outputSelector = outputSelector;
     this.list = getLocalStorage(key);
+
+    if (!this.list) return;
+
     this.calculateItemSummary();
     this.calculateOrdertotal();
   },

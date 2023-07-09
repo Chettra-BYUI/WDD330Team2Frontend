@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, renderBreadcrumb } from "./utils.mjs";
 import { findProductById } from "./externalServices.mjs";
 
 export default async function productDetails(productId, selector) {
@@ -92,6 +92,10 @@ function renderProductDetails(productDetail) {
     .getElementById("addToCart")
     .setAttribute("data-id", productDetail.Id);
 
+  // rendering product breadcrumb
+  const productBreadcrumbTemplate = productBreadcrumbTemplateFunction(productDetail.Category);
+  renderBreadcrumb(productBreadcrumbTemplate, "#main-header");
+
   // const productElement = document.querySelector(".product-detail");
   // const productNode = `
   //   <h3 id="productName">${productDetail.Brand.Name}</h3>
@@ -121,4 +125,10 @@ function showNotFoundPage() {
 
   productDetail.classList.add("product-not-found");
   productDetail.innerHTML += status.outerHTML + title.outerHTML;
+}
+
+function productBreadcrumbTemplateFunction(categoryName) {
+  return `<div class="breadcrumb">
+    <span class="breadcrumb__item">${ categoryName }</span>
+  </div>`;
 }

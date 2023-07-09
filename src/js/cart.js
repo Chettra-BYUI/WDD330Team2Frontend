@@ -1,8 +1,11 @@
 import cartList from "./shoppingCart.mjs";
-import { loadHeaderFooter } from "./utils.mjs";
+import { loadHeaderFooter, renderBreadcrumb } from "./utils.mjs";
 
 loadHeaderFooter();
 cartList(".product-list", "so-cart");
+
+// renderBreadcrumb
+renderBreadcrumb();
 
 // function renderCartContents() {
 //   const cartItems = getLocalStorage("so-cart");

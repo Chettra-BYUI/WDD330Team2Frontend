@@ -1,5 +1,5 @@
 import { getProductsByCategory } from "./externalServices.mjs";
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderListWithTemplate, renderBreadcrumb } from "./utils.mjs";
 
 function productCardTemplate(product) {
   let RS_Price = product.SuggestedRetailPrice;
@@ -20,11 +20,14 @@ function productCardTemplate(product) {
   </li>`;
 }
 
-// function renderList(products, productListElement) {
-//   const htmlStrings = products.map((product) => productCardTemplate(product));
+function categoryBreadcrumbTemplateFunction(categoryName, categoryProductQuantity) {
+  return `<div class="breadcrumb">
+    <span class="breadcrumb__item">${ categoryName }</span>
+    <span class="breadcrumb__arrow">&#8594;</span>    
+    <span class="breadcrumb__item">(${ categoryProductQuantity } item${ categoryProductQuantity > 1 ? "s" : "" })</span>
+  </div>`;
+}
 
-//   productListElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
-// }
 function filterProducts(numbers, products) { 
   return products.filter(( product, index ) => index < numbers );
 }
@@ -56,8 +59,10 @@ function sortProductList(products, sortingType = "name") {
 
 // fetching and rendering product list
 export default async function productList(selector, category) {
+  const FILTERED_PRODUCT_QUANTITY = 14;
+
   const products = await getProductsByCategory(category);
-  const filteredProducts = filterProducts(14, products);
+  const filteredProducts = filterProducts(FILTERED_PRODUCT_QUANTITY, products);
   const productListElement = document.querySelector(selector);
   const sortProductListElement = document.querySelector("#sort-products");
 
@@ -71,7 +76,6 @@ export default async function productList(selector, category) {
     renderListWithTemplate(productCardTemplate, productListElement, sortedProductList, "afterbegin", true);
   });
 
-  // get the element we will insert the list into from the selector
-  // get the list of products
-  // render out the product list to the element
+  const categoryBreadcrumbTemplate = categoryBreadcrumbTemplateFunction(category, FILTERED_PRODUCT_QUANTITY)
+  renderBreadcrumb(categoryBreadcrumbTemplate, "#main-header");
 }
