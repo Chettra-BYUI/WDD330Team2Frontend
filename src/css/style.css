@@ -334,6 +334,7 @@ button,
 
 /* Styles for product lists */
 .product-card {
+  position: relative;
   flex: 1 1 45%;
   margin: 0.25em;
   padding: 0.5em;
@@ -345,6 +346,33 @@ button,
 .product-card h3,
 .product-card p {
   margin: 0.5em 0;
+}
+
+.product-card__discount {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 65px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+@media screen and (min-width: 768px) {
+  .product-card__discount {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    font-size: 12px;
+  }
 }
 
 .card__brand {

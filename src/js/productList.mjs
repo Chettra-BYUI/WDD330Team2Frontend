@@ -4,6 +4,7 @@ import { renderListWithTemplate, renderBreadcrumb } from "./utils.mjs";
 function productCardTemplate(product) {
   let RS_Price = product.SuggestedRetailPrice;
   let formattedRSP = RS_Price.toLocaleString("en-US", { style: "currency", currency: "USD" });
+  const productDiscount = product.SuggestedRetailPrice - product.ListPrice;
 
   return `<li class="product-card">
     <a href="../product_pages/index.html?product=${product.Id}">
@@ -17,6 +18,7 @@ function productCardTemplate(product) {
     <h2 class="card__name">${product.NameWithoutBrand}</h2>
     <p class="product-card__price">$${product.ListPrice}</p></a>
     <p class="product-card__price_SRP">${formattedRSP}</p></a>
+    <p class="product-card__discount"><span>$${productDiscount.toFixed(2)} OFF</span></p></a>
   </li>`;
 }
 
